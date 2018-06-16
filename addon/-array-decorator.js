@@ -1,13 +1,26 @@
-import Ember from 'ember';
+import ArrayProxy from '@ember/array/proxy';
+import { get } from '@ember/object';
 import getDecorator from './-get-decorator';
 
-const { ArrayProxy, get } = Ember;
-
 export default ArrayProxy.extend({
+  decoratedContent: null,
+
   objectAtContent(index) {
-    const Decorator = getDecorator(this, this.get('itemDecorator'));
-    let content = get(this, 'arrangedContent').objectAt(index)
-      || get(this, 'defaultObject');
-    return Decorator.create({ content, index });
+    let content = this.get('arrangedContent').objectAt(index);
+    let decoratedContent = this.get('decoratedContent');
+    if (decoratedContent.has(content)) {
+      return decoratedContent.get(content);
+    }
+
+    let lookupName = this.get('itemDecorator');
+    let Decorator = getDecorator(this, lookupName);
+    let decorator = Decorator.create({ content, index });
+    decoratedContent.set(content, decorator);
+    return decorator;
+  }
+
+  init() {
+    this._super(...argumants);
+    this.set('decoratedContent', new WeakMap());
   }
 });
