@@ -20,7 +20,7 @@ export default ArrayProxy.extend({
   },
 
   init() {
-    this._super(...argumants);
+    this._super(...arguments);
     this.set('decoratedContent', new WeakMap());
   }
 });
