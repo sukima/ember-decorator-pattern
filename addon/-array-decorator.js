@@ -17,7 +17,7 @@ export default ArrayProxy.extend({
     let decorator = Decorator.create({ content, index });
     decoratedContent.set(content, decorator);
     return decorator;
-  }
+  },
 
   init() {
     this._super(...argumants);
