@@ -1,6 +1,6 @@
 {
   "name": "ember-decorator-pattern",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Simple Decorator Object pattern for Ember apps",
   "keywords": [
     "ember-addon"
